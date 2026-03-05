@@ -73,7 +73,6 @@ jobs:
           mode: warn
           no_baseline_behavior: warn
           baseline_runs: "10"
-          min_samples: "1"
           baseline_event_filter: workflow_dispatch
           debug: "true"
 
