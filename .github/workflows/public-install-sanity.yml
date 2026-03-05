@@ -25,7 +25,7 @@ jobs:
         id: cache_key
         shell: bash
         run: |
-          KEY_STR="demo|${{ runner.os }}|$(sha256sum .cache-key | cut -d ' ' -f1)"
+          KEY_STR="demo|${{ runner.os }}|sha=${{ github.sha }}|$(sha256sum .cache-key | cut -d ' ' -f1)"
           echo "key_str=$KEY_STR" >> "$GITHUB_OUTPUT"
 
       - name: Compute key fingerprint
@@ -49,8 +49,6 @@ jobs:
         with:
           path: .cache/demo
           key: ${{ steps.cache_key.outputs.key_str }}
-          restore-keys: |
-            demo|${{ runner.os }}|
 
       - name: "[cache] group=demo-cache hit=${{ steps.demo_cache.outputs.cache-hit }} key_fp=${{ steps.cache_fp.outputs.key_fp }} key_hint=demo"
         shell: bash
